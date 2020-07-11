@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{xcolor}
+
+% geometry
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+% math command
+\usepackage{bm}
+\usepackage{latexsym,amssymb,amsmath} 
+\usepackage{comment}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{claim}{Claim}
+\newtheorem{proposition}{Proposition}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\newcommand{\oneb}{{\mathbf{1}}}
+\newcommand{\lspan}{{\mathrm{span}}}
+\newcommand{\Bc}{{\mathcal{B}}}
+\newcommand{\Pc}{{\mathcal{P}}}
+\newcommand{\Hc}{{\mathcal{H}}}
+\newcommand{\Cc}{{\mathcal{C}}}
+\newcommand{\Dc}{{\mathcal{D}}}
+\newcommand{\Qc}{{\mathcal{Q}}}
+\newcommand{\Ic}{{\mathcal{I}}}
+\newcommand{\Lc}{{\mathcal{L}}}
+\newcommand{\Ec}{{\mathcal{E}}}
+
+\newcommand{\Jc}{{\mathcal{J}}}
+\newcommand{\Xc}{{\mathcal{X}}}
+\newcommand{\Zc}{{\mathcal{Z}}}
+
+\newcommand{\Nc}{{\mathcal{N}}}
+
+% random vector
+\newcommand{\va}{{\mathbf{a}}}
+\newcommand{\vx}{{\mathbf{x}}}
+\newcommand{\vu}{{\mathbf{u}}}
+\newcommand{\vy}{{\mathbf{y}}}
+\newcommand{\vw}{{\mathbf{w}}}
+\newcommand{\vW}{{\mathbf{W}}}
+\newcommand{\vI}{{\mathbf{I}}}
+\newcommand{\vH}{{\mathbf{H}}}
+\newcommand{\veps}{{\mathbf{\epsilon}}}
+
+
+%import
+\newcommand{\Qb}{{\mathbb{Q}}}
+\newcommand{\Pb}{{\mathbb{P}}}
+\newcommand{\Rb}{{\mathbb{R}}}
+\newcommand{\Eb}{{\mathbb{E}}}
+\newcommand{\Nb}{{\mathbb{N}}}
+
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\newcommand{\todo}[1]{{\textcolor{red}{[todo: #1]}}}
+
+\newcommand{\yh}[1]{{\textcolor{purple}{[YH: #1]}}}
+\newcommand{\rftext}[1]{{\textcolor{blue}{[Ref: #1]}}}
+
+\title{Notes and Solutions for \emph{High-Dimensional Statistics: A Non-Asymptotic Viewpoint}}
+\author{Yihong Gu}
+
+\begin{document}
+
+%\input{math_command.tex}
+
+\maketitle
+\tableofcontents
+
+\newpage
+
+\input{parts/ch2-basic-concentration}
+
+\end{document}
