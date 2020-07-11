@@ -1,0 +1,123 @@
+\section{Basic tail and concentration bounds}
+
+\subsection{Classical bounds}
+
+The idea is to control the tail probability $\Pb(X\ge t)$ of random variable $X$ by its moments or its moment-generating functions (MGF). We first present some basic tail probability inequalities (Markov, Chebyshev, and Chernoff). After introducing the tool of MGF, we could provide the tail probability of a family of random variables if its MGF satisfies specific condition.
+
+\subsubsection{From Markov to Chernoff}
+
+\begin{claim}[Basic tail probability inequality] We have the following results:\\
+1. (Markov inequality). $X$ is non-negative random variable with finite mean, then we have
+\begin{equation}
+    \Pb(X\ge t) \le \frac{1}{t} \Eb[X]
+\end{equation}\\
+2. (Chebyshev inequality). $X$ is a random variable with finite variance, then 
+\begin{equation}
+    \Pb(|X-\Eb[X]|\ge t) \le \frac{1}{t^2} \Var[X]
+\end{equation}
+3. (Chernoff inequality). If $X$ has moment generating functions $\phi(\lambda)=\Eb[e^{\lambda(X-\Eb[X])}]$ in $|\lambda|\le b$, then 
+\begin{equation}
+\label{eqn:chernoff}
+    \log \Pb(X-\Eb[X] \ge t)\le \inf_{0\le \lambda\le b}\big\{ -\lambda t + \log \phi(\lambda) \big\}
+\end{equation}
+\end{claim}
+
+\noindent \textbf{Proof.} For (1), let $\mu(x)$ to denote the probability measure of random variable $X$. Because $X$ is non-negative, we have
+\begin{equation*}
+    \Pb(X\ge t)=\int_{t}^{\infty} d\mu(x) \le \int_{0}^{\infty} \frac{x}{t} d\mu(x) = \frac{1}{t} \Eb[X].
+\end{equation*}
+
+For (2), since the random variable $|X-\Eb[X]|$ is non-negative and $|X-\Eb[X]|^2$ has finite mean, then 
+\begin{equation*}
+    \Pb(|X-\Eb[X]|\ge t)=\Pb(|X-\Eb[X]|^2\ge t^2)\le \frac{1}{t^2} \Var[X].
+\end{equation*}
+
+For (3), it should be noted that the random variable $Y=e^{\lambda(X-\Eb[X])}$ is non-negative and has finite mean (a.k.a, $\phi(\lambda)$), then for any non-negative $\lambda\in [0, b]$,
+\begin{equation*}
+    \log \Pb(X-\Eb[X]\ge t) = \log \Pb(e^{\lambda(X-\Eb[X])}\ge e^{\lambda t}) \le \log\phi(\lambda)-\lambda t
+\end{equation*}, it concludes after optimizing our choice of $\lambda$. $\proofend$ 
+
+\noindent \textbf{Remarks} 
+\begin{itemize}
+\item[1.] the results of Markov inequality and Chebyshev inequality is sharp, i.e., the equality holds when specific conditions holds. \rftext{Exercise 2.1} \\
+\item[2.] We could bound the tail probability $\Pb(|X-\Eb[X]|\ge t)$ using the k-th moment of $|X-\Eb[X]|$, i.e., 
+\begin{equation*}
+\Pb(|X-\Eb[X]|\ge t) \le \frac{1}{t^k} \Eb |X-\Eb[x]|^k
+\end{equation*},its result with best choice of $k$ is never worse than the result of Eqn \ref{eqn:chernoff}. \rftext{Exercise 2.3}
+\item[3.] We could derive other results from \ref{eqn:chernoff} \rftext{Exercise 2.5}
+\end{itemize}
+
+\subsection{Sub-Gaussian variables and Hoeffding bounds}
+
+\begin{definition}[Sub-Gaussian]
+A random variable with mean $\mu=\Eb[X]$ is Sub-Gaussian with parameter $\sigma$ if 
+\begin{equation}
+    \Eb[e^{\lambda(X-\mu)}]\le e^{\frac{1}{2}\lambda^2\sigma^2}\text{, for any }\lambda\in \Rb
+\end{equation}, which is denoted as $X\in \sg{\sigma}$
+\end{definition}
+
+\begin{proposition}[Properties of Sub-Gaussian random variable] Let $X\in \sg{\sigma}$, $X_1\in\sg{\sigma_1}, \cdots, X_n\in\sg{\sigma_n}$ be a sequence of i.i.d. Sub-Gaussian random variables, and let $mu, mu_1, \cdots, \mu_n$ to be their mean, then \\
+(1) (Linearity) For any $c\in \Rb$, we have $cX \in \sg{|c|\sigma}$, and $X_1+X_2\in\sg{\sqrt{\sigma_1^2+\sigma_2^2}}$\\
+(2) (Concentration) For any $t\ge 0$, we have the concentration inequality \begin{equation}
+    \Pb(X-\mu\ge t) \le e^{-\frac{t^2}{2\sigma^2}}
+\end{equation}
+(3) (Hoeffding bound) For any $t\ge 0$, 
+\begin{equation}
+    \Pb\big(\sum_{i=1}^n(X_i-\mu_i)\ge t\big)\le \exp^{-\frac{t^2}{2\sum_{i=1}^n\sigma_i^2}}
+\end{equation}
+\end{proposition}
+
+\noindent \textbf{Proof.} (1) could be obtained from definition. For scalar multiplication, the MGF of $cX$ is $\Eb[e^{\lambda(cX-c\mu)}]=\Eb[e^{c\lambda(X-\mu)}]\le e^{\frac{1}{2}(c\lambda)^2\sigma^2}=e^{\frac{1}{2}\lambda^2(|c|\sigma)^2}$. For addition, because $X_1$ and $X_2$ are independent, the MGF of $X_1+X_2$ could be decomposed into two parts as
+\begin{equation*}
+    \Eb[e^{\lambda(X_1+X_2-\mu_1-\mu_2)}]=\Eb[e^{\lambda(X_1-\mu_1)}] \Eb[e^{\lambda(X_2-\mu_2)}] \le e^{\frac{1}{2}\lambda^2(\sigma_1^2+\sigma_2^2)}.
+\end{equation*}
+We next use Chernoff inequality to derive (2). Using Chernoff inequality, we have
+\begin{equation*}
+    \log \Pb(X-\mu\ge t) \le \inf_{\lambda\in [0, \infty)} g(\lambda;t,\sigma),
+\end{equation*} where $g(\lambda;t,\sigma)=\frac{1}{2}\lambda^2 \sigma^2 - \lambda t$ and it obtains minimal at $\lambda=\frac{t}{\sigma^2}$, hence $\log \Pb(X-\mu\ge t)\le -\frac{t^2}{2\sigma^2}$.\\
+(3) is the corollary of (1) and (2). $\proofend$
+
+\begin{claim}[Examples of Sub-Gaussian random variables] The following random variables are Sub-Gaussian random variables: \\
+(1) Rademacher variable $\epsilon$, which takes value in $\{-1,+1\}$ with equal probability, it is Sub-Gaussian with parameter $1$. \\
+(2) Bounded random variable $X$. If X is supported almost surely on $[a,b]$, then $X\in \sg{\frac{b-a}{2}}$.
+\end{claim}
+
+\noindent \textbf{Proof.} (1) the MGF of the random variable $\epsilon$ is $\Eb[e^{\lambda\epsilon}]=\frac{1}{2} (e^\lambda + e^{-\lambda})$. By Talyor expansion, we have
+\begin{align*}
+    \Eb[e^{\lambda\epsilon}]&=\frac{1}{2} \big(2 + \sum_{k=1}^\infty \frac{\lambda^k}{k!}+\frac{(-\lambda)^k}{k!}\big)\\
+    &= \sum_{k=0}^\infty \frac{\lambda^{2k}}{(2k)!} \le  \sum_{k=0}^\infty \frac{(\lambda^2)^k}{2^k k!}=e^{\frac{1}{2}\lambda^2}. 
+\end{align*}
+(2) We first prove a technical lemma: if the random variable $Y$ is supported on $[a,b]$, then the variance of $Y$ could be bounded by $\frac{1}{4}(b-a)^2$. By the property of variance, we have
+\begin{equation*}
+    \Var[Y]=\inf_{v} \Eb[(Y-v)^2] \le \Eb[\big(Y-\frac{a+b}{2}\big)^2]\le \big(\frac{b-a}{2}\big)^2
+\end{equation*}
+Defining the function $\varphi(\lambda)=\log \Eb[e^{\lambda X}]$. We need to prove that $\varphi(\lambda)-\lambda\mu \le \frac{1}{8}\lambda^2(b-a)^2$. By simple calculation, we have $\varphi(0)=0$, and 
+\begin{equation*}
+\varphi'(\lambda)=\Eb_\lambda[X], \varphi''(\lambda)=\Eb_\lambda[X^2]-(\Eb_\lambda[X])^2
+\end{equation*}, where $\Eb_{\lambda}[f(X)]=\frac{\Eb[f(X) e^{\lambda X}]}{\Eb[e^{\lambda X}]}$. It should be noted that $\Eb_{\lambda}[f(X)]$ could also be represented as the expectation of $f(X_\lambda)$ where $X_\lambda$ is defined as a reweighting of $X$, i.e.,
+\begin{equation*}
+    \mu_{X_\lambda}(x) = \frac{e^{\lambda x}}{\Eb[e^{\lambda X}]} \mu_X(x).
+\end{equation*}Therefore $\varphi'(\lambda)$ and $\varphi''(\lambda)$ could also be written as
+\begin{equation*}
+\varphi'(\lambda)=\Eb[X_\lambda], \varphi''(\lambda)=\Eb[X_\lambda^2]-(\Eb[X_\lambda])^2=\Var[X_\lambda].
+\end{equation*} By the definition of $X_\lambda$, it is also supported on $[a,b]$, so $\varphi''(\lambda)\le \frac{1}{4}(b-a)^2$. Finally, using Taylor expansion, we have\begin{align*}
+    \varphi(\lambda)&=\varphi(0)+\varphi'(0)\lambda+\frac{1}{2}\varphi''(a)\lambda^2 \le \mu\lambda + \frac{1}{8}(b-a)^2\lambda^2
+\end{align*}, hence the MGF of random variable X could be bounded by $\frac{1}{8}\lambda^2(b-a)^2$.
+
+\begin{theorem}[Equivalent Characterization of Sub-Gaussian variables] Given any zero-mean random variable $X$, the following properties are equivalent: \\
+(1) there exists $\sigma>0$ such that \begin{equation*}\Eb[e^{\lambda X}]\le e^{\frac{1}{2}\lambda^2\sigma^2}\text{ for any } \lambda\in \Rb.\end{equation*}
+(2) there exists a constant $c>0$ and a Gaussian random variable $Z\sim\Nc(0,\tau^2)$, such that 
+\begin{equation*}
+    \Pb(|X|\ge s) \le c\Pb(|Z|\ge s) \text{ for all } s\ge 0
+\end{equation*}
+(3) there exists a constant $\theta\ge 0$ such that for any positive integer $k$, it holds
+\begin{equation*}
+    \Eb[|X|^{2k}] \le \frac{(2k)!}{2^kk!}\theta^{2k}.
+\end{equation*}
+(4) there exists a constant $\sigma>0$ such that for any $\lambda\in[0,1)$, it holds
+\begin{equation*}
+    \Eb[e^{\frac{\lambda X^2}{2\sigma^2}}]\le \frac{1}{\sqrt{1-\lambda}}
+\end{equation*}
+\end{theorem}
+
+\subsection{Sub-exponential variables and Bernstein bounds}
