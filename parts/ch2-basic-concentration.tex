@@ -22,7 +22,8 @@ The idea is to control the tail probability $\Pb(X\ge t)$ of random variable $X$
 \end{equation}
 \end{claim}
 
-\noindent \textbf{Proof.} For (1), let $\mu(x)$ to denote the probability measure of random variable $X$. Because $X$ is non-negative, we have
+\proofenv{
+For (1), let $\mu(x)$ to denote the probability measure of random variable $X$. Because $X$ is non-negative, we have
 \begin{equation*}
     \Pb(X\ge t)=\int_{t}^{\infty} d\mu(x) \le \int_{0}^{\infty} \frac{x}{t} d\mu(x) = \frac{1}{t} \Eb[X].
 \end{equation*}
@@ -35,7 +36,8 @@ For (2), since the random variable $|X-\Eb[X]|$ is non-negative and $|X-\Eb[X]|^
 For (3), it should be noted that the random variable $Y=e^{\lambda(X-\Eb[X])}$ is non-negative and has finite mean (a.k.a, $\phi(\lambda)$), then for any non-negative $\lambda\in [0, b]$,
 \begin{equation*}
     \log \Pb(X-\Eb[X]\ge t) = \log \Pb(e^{\lambda(X-\Eb[X])}\ge e^{\lambda t}) \le \log\phi(\lambda)-\lambda t
-\end{equation*}, it concludes after optimizing our choice of $\lambda$. $\proofend$ 
+\end{equation*}, it concludes after optimizing our choice of $\lambda$. 
+}
 
 \noindent \textbf{Remarks} 
 \begin{itemize}
@@ -47,7 +49,7 @@ For (3), it should be noted that the random variable $Y=e^{\lambda(X-\Eb[X])}$ i
 \item[3.] We could derive other results from \ref{eqn:chernoff} \rftext{Exercise 2.5}
 \end{itemize}
 
-\subsection{Sub-Gaussian variables and Hoeffding bounds}
+\subsubsection{Sub-Gaussian variables and Hoeffding bounds}
 
 \begin{definition}[Sub-Gaussian]
 A random variable with mean $\mu=\Eb[X]$ is Sub-Gaussian with parameter $\sigma$ if 
@@ -56,7 +58,9 @@ A random variable with mean $\mu=\Eb[X]$ is Sub-Gaussian with parameter $\sigma$
 \end{equation}, which is denoted as $X\in \sg{\sigma}$
 \end{definition}
 
-\begin{proposition}[Properties of Sub-Gaussian random variable] Let $X\in \sg{\sigma}$, $X_1\in\sg{\sigma_1}, \cdots, X_n\in\sg{\sigma_n}$ be a sequence of i.i.d. Sub-Gaussian random variables, and let $mu, mu_1, \cdots, \mu_n$ to be their mean, then \\
+\begin{proposition}[Properties of Sub-Gaussian random variable] 
+\label{prop:sub-gaussian-property}
+Let $X\in \sg{\sigma}$, $X_1\in\sg{\sigma_1}, \cdots, X_n\in\sg{\sigma_n}$ be a sequence of i.i.d. Sub-Gaussian random variables, and let $mu, mu_1, \cdots, \mu_n$ to be their mean, then \\
 (1) (Linearity) For any $c\in \Rb$, we have $cX \in \sg{|c|\sigma}$, and $X_1+X_2\in\sg{\sqrt{\sigma_1^2+\sigma_2^2}}$\\
 (2) (Concentration) For any $t\ge 0$, we have the concentration inequality \begin{equation}
     \Pb(X-\mu\ge t) \le e^{-\frac{t^2}{2\sigma^2}}
@@ -67,7 +71,8 @@ A random variable with mean $\mu=\Eb[X]$ is Sub-Gaussian with parameter $\sigma$
 \end{equation}
 \end{proposition}
 
-\noindent \textbf{Proof.} (1) could be obtained from definition. For scalar multiplication, the MGF of $cX$ is $\Eb[e^{\lambda(cX-c\mu)}]=\Eb[e^{c\lambda(X-\mu)}]\le e^{\frac{1}{2}(c\lambda)^2\sigma^2}=e^{\frac{1}{2}\lambda^2(|c|\sigma)^2}$. For addition, because $X_1$ and $X_2$ are independent, the MGF of $X_1+X_2$ could be decomposed into two parts as
+\proofenv{ 
+(1) could be obtained from definition. For scalar multiplication, the MGF of $cX$ is $\Eb[e^{\lambda(cX-c\mu)}]=\Eb[e^{c\lambda(X-\mu)}]\le e^{\frac{1}{2}(c\lambda)^2\sigma^2}=e^{\frac{1}{2}\lambda^2(|c|\sigma)^2}$. For addition, because $X_1$ and $X_2$ are independent, the MGF of $X_1+X_2$ could be decomposed into two parts as
 \begin{equation*}
     \Eb[e^{\lambda(X_1+X_2-\mu_1-\mu_2)}]=\Eb[e^{\lambda(X_1-\mu_1)}] \Eb[e^{\lambda(X_2-\mu_2)}] \le e^{\frac{1}{2}\lambda^2(\sigma_1^2+\sigma_2^2)}.
 \end{equation*}
@@ -75,14 +80,15 @@ We next use Chernoff inequality to derive (2). Using Chernoff inequality, we hav
 \begin{equation*}
     \log \Pb(X-\mu\ge t) \le \inf_{\lambda\in [0, \infty)} g(\lambda;t,\sigma),
 \end{equation*} where $g(\lambda;t,\sigma)=\frac{1}{2}\lambda^2 \sigma^2 - \lambda t$ and it obtains minimal at $\lambda=\frac{t}{\sigma^2}$, hence $\log \Pb(X-\mu\ge t)\le -\frac{t^2}{2\sigma^2}$.\\
-(3) is the corollary of (1) and (2). $\proofend$
+(3) is the corollary of (1) and (2).
+}
 
 \begin{claim}[Examples of Sub-Gaussian random variables] The following random variables are Sub-Gaussian random variables: \\
 (1) Rademacher variable $\epsilon$, which takes value in $\{-1,+1\}$ with equal probability, it is Sub-Gaussian with parameter $1$. \\
 (2) Bounded random variable $X$. If X is supported almost surely on $[a,b]$, then $X\in \sg{\frac{b-a}{2}}$.
 \end{claim}
 
-\noindent \textbf{Proof.} (1) the MGF of the random variable $\epsilon$ is $\Eb[e^{\lambda\epsilon}]=\frac{1}{2} (e^\lambda + e^{-\lambda})$. By Talyor expansion, we have
+\proofenv{ (1) the MGF of the random variable $\epsilon$ is $\Eb[e^{\lambda\epsilon}]=\frac{1}{2} (e^\lambda + e^{-\lambda})$. By Talyor expansion, we have
 \begin{align*}
     \Eb[e^{\lambda\epsilon}]&=\frac{1}{2} \big(2 + \sum_{k=1}^\infty \frac{\lambda^k}{k!}+\frac{(-\lambda)^k}{k!}\big)\\
     &= \sum_{k=0}^\infty \frac{\lambda^{2k}}{(2k)!} \le  \sum_{k=0}^\infty \frac{(\lambda^2)^k}{2^k k!}=e^{\frac{1}{2}\lambda^2}. 
@@ -101,8 +107,9 @@ Defining the function $\varphi(\lambda)=\log \Eb[e^{\lambda X}]$. We need to pro
 \begin{equation*}
 \varphi'(\lambda)=\Eb[X_\lambda], \varphi''(\lambda)=\Eb[X_\lambda^2]-(\Eb[X_\lambda])^2=\Var[X_\lambda].
 \end{equation*} By the definition of $X_\lambda$, it is also supported on $[a,b]$, so $\varphi''(\lambda)\le \frac{1}{4}(b-a)^2$. Finally, using Taylor expansion, we have\begin{align*}
-    \varphi(\lambda)&=\varphi(0)+\varphi'(0)\lambda+\frac{1}{2}\varphi''(a)\lambda^2 \le \mu\lambda + \frac{1}{8}(b-a)^2\lambda^2
+    \varphi(\lambda)&=\varphi(0)+\varphi'(0)\lambda+\frac{1}{2}\varphi''(\xi)\lambda^2 \le \mu\lambda + \frac{1}{8}(b-a)^2\lambda^2
 \end{align*}, hence the MGF of random variable X could be bounded by $\frac{1}{8}\lambda^2(b-a)^2$.
+}
 
 \begin{theorem}[Equivalent Characterization of Sub-Gaussian variables] Given any zero-mean random variable $X$, the following properties are equivalent: \\
 (1) there exists $\sigma>0$ such that \begin{equation*}\Eb[e^{\lambda X}]\le e^{\frac{1}{2}\lambda^2\sigma^2}\text{ for any } \lambda\in \Rb.\end{equation*}
@@ -120,4 +127,170 @@ Defining the function $\varphi(\lambda)=\log \Eb[e^{\lambda X}]$. We need to pro
 \end{equation*}
 \end{theorem}
 
-\subsection{Sub-exponential variables and Bernstein bounds}
+\subsubsection{Sub-exponential variables and Bernstein bounds}
+
+\begin{definition}[Sub-exponential] A random variable X is sub-exponential if there are non-negative parameter $(\nu,\alpha)$ s.t. 
+\begin{equation}
+    \Eb[e^{\lambda(X-\Eb[X])}] \le e^{\frac{1}{2}\nu^2\lambda^2}\text{ for all }\lambda\le \frac{1}{\alpha},
+\end{equation}which could be denoted as $X\in \se{\nu,\alpha}.$
+\end{definition}
+
+\begin{proposition}[Properties of Sub-exponential random variables] 
+\label{prop:sub-expoential-property}
+Let $X\in\se{\nu, \alpha}, X_1\in\se{\nu_1, \alpha_1},$ $\cdots, X_n\in\se{\nu_n, \alpha_n}$ be a sequence of i.i.d. sub-exponential random variables whose mean is $\mu, \mu_1, \cdots, \mu_n$ respectively. Then we have\\
+(1) (Linearity) $cX\in \se{|c|\nu,|c|\alpha}$, and $X_1+X_2\in \se{\sqrt{\nu_1^2+\nu_2^2},\min\{\alpha_1,\alpha_2\}}$ \\
+(2) (Concentration) For any $t\ge 0$, it holds
+\begin{equation}
+    \Pb(X-\mu\ge t)\le 
+    \left\{
+        \begin{aligned}
+        e^{-\frac{t^2}{2\nu^2}} & \text{,if }  t\le \frac{\nu^2}{\alpha} \\
+        e^{-\frac{t}{2\alpha}} & \text{,otherwise}
+        \end{aligned}
+    \right.
+\end{equation}
+(3) (Composition) The random variable $Y=\sum_{i=1}^n(X_i-\mu_i)$ is sub-exponential with parameter $(\nu_*,\alpha_*)$, where $\nu_*=\sqrt{\sum_{i=1}^n\nu_i^2}$ and $\alpha_*=\min_{1\le i\le n}\alpha_i$, and has the following tail probability bound
+\begin{equation}
+    \Pb(Y\ge t)\le 
+    \left\{
+        \begin{aligned}
+        e^{-\frac{t^2}{2\nu_*^2}} & \text{,if }  t\le \frac{\nu_*^2}{\alpha_*} \\
+        e^{-\frac{t}{2\alpha_*}} & \text{,otherwise}
+        \end{aligned}
+    \right.
+\end{equation}
+\end{proposition}
+
+\proofenv{ 
+(1) The proof is similar w.r.t. statement (1) in Proposition \ref{prop:sub-gaussian-property} 
+
+(2), using Chernoff inequality, we have 
+\begin{equation*}
+    \log \Pb(X-\mu\ge t) \le \inf_{0\le \lambda < \frac{1}{\alpha}}\log\Eb[e^{\lambda(X-\mu)}]-\lambda t=\inf_{0\le \lambda < \frac{1}{\alpha}} g(\lambda;\nu,t)
+\end{equation*}, where $g(\lambda;\nu,t)=\frac{1}{2}\nu^2\lambda^2-\lambda t$. $g(\lambda)$ is a quadratic function of $\lambda$, which is decreasing when $\lambda\in(-\infty,\frac{t}{\nu^2}]$ and is increasing in $\lambda\in[\frac{t}{\nu^2},\infty)$. Therefore, if $\frac{t}{\nu^2}\le \frac{1}{\alpha}$, then it obtains minimum at $\lambda^*=\frac{t}{\nu^2}$ and the r.h.s is $-\frac{t^2}{2\nu^2}$. Otherwise it obtains minimum at $\lambda^*=\frac{1}{\alpha}$ and the r.h.s. is 
+\begin{equation*}
+    \frac{\nu^2}{2\alpha^2}-\frac{t}{\alpha} =  \frac{\nu^2}{2\alpha} \frac{1}{\alpha}-\frac{t}{\alpha} \le \frac{\nu^2}{2\alpha} \frac{t}{\nu^2}-\frac{t}{\alpha}=-\frac{t}{2\alpha}.
+\end{equation*}
+
+(3) is the direct corollary of (1) and (2). 
+}
+
+\begin{theorem}[Equivalent Characterization of sub-exponential random variables] For a zero-mean random variable, the following statements are equivalent: \\
+(1) $\exists$ non-negative numbers $(\nu,\alpha)$, such that 
+\begin{equation*}
+    \Eb e^{\lambda X} \le e^{\frac{1}{2}\nu^2\lambda^2}\text{ for all } |\lambda|\le \frac{1}{\alpha}.
+\end{equation*}
+(2) $\exists$ positive number $c_0$, such that $\Eb e^\lambda X\le \infty$ for all $|\lambda|\le c_0$. \\
+(3) $\exists$ constants $c_1, c_2 > 0$, such that $$\Pb(|X|\ge t)\le c_1 e^{-c_2 t}\text{ for all }t\ge 0.$$
+(4) the quantity $r=\sup_{k\ge 1}\big[ \frac{1}{k!} \Eb [X^k]\big]^{\frac{1}{k}}$ is finite.
+\end{theorem}
+
+\begin{definition}[Bernstein Condition]
+For random variable X with mean $\mu=\Eb[X]$ and variance $\sigma^2=\Eb[(X-\mu)^2]$, the Bernstein condition with parameter $b$ holds if
+\begin{equation}
+    \big|\Eb[(X-\mu)^k]\big|\le \frac{1}{2}k!\sigma^2b^{k-2}\text{ for } k=2, 3,\cdots
+\end{equation}, which is denoted as $X\in\bs{b}$.
+\end{definition}
+
+\begin{proposition}[Bernstein-type Bound] For any random variable satisfying the Bernstein condition, we have
+\begin{equation}
+    \Eb[e^{\lambda(X-\mu)}]\le \exp(\frac{\frac{1}{2}\sigma^2\lambda^2}{1-b|\lambda|})\text{ for all } |\lambda|\le \frac{1}{b},
+\end{equation}, hence $X\in \se{\sqrt{2}\sigma, 2b}$. Moreover, we also have the concentration inequality 
+\begin{equation}
+    \Pb(X-\mu\ge t) \le \exp(-\frac{t^2}{2(bt+\sigma^2)}),
+\end{equation} for all $t\ge 0$.
+\end{proposition}
+
+\proofenv{ 
+Consider the moment-generating function of $X$, by taylor expansion, we have
+
+\begin{align*}
+    \Eb[e^{\lambda(X-\mu)}]&=\sum_{k=0}^{\infty}\frac{\lambda^k}{k!} \Eb[(X-\mu)^k]\\
+    &= 1+\frac{1}{2}\sigma^2\lambda^2+\sum_{k=2}^\infty \frac{\lambda^k}{k!} \Eb[(X-\mu)^k] \\
+    &\le 1 + \frac{1}{2}\sigma^2\lambda^2\Big(1+\sum_{k=2}^{\infty} (|\lambda| b)^{k-2}\Big)\\
+    &=1+\frac{\frac{1}{2}\sigma^2\lambda^2}{1-b|\lambda|}\\
+    &\le\exp\big(\frac{\frac{1}{2}\sigma^2\lambda^2}{1-b|\lambda|}\big).
+\end{align*}
+
+If $|\lambda|< \frac{1}{2b}$, it follows
+
+\begin{align*}
+    \Eb[e^{\lambda(X-\mu)}] &\le\exp\big(\frac{\frac{1}{2}\sigma^2\lambda^2}{\frac{1}{2}}\big)=e^{\frac{1}{2}(\sqrt{2}\sigma)^2\lambda^2},
+\end{align*} by definition, $X\in\se{\sqrt{2}\sigma, 2b}$.
+
+Moreover, using Chernoff inequality, we have
+
+\begin{align*}
+    \log \Pb(X-\mu\ge t) \le \inf_{0\le \lambda < 1/b} -\lambda t +  \frac{\sigma^2\lambda^2}{2(1-b\lambda)}, 
+\end{align*} the optimal $\lambda^*$ is $\frac{1}{b}\big(1-\frac{\sigma}{\sqrt{\sigma^2+2tb}}\big)$, but the result is then too complicated, so we choose $\lambda=\lambda_*=\frac{t}{bt+\sigma^2}$.
+}
+
+\begin{example}[$\chi^2$ variables] Let $Z$ be standard Gaussian random variable, and $X=Z^2$, then $X$ is sub-exponential with parameter $(2,4)$. A chi-square random variable with degree $n$ of freedom, i.e., $Y\sim \chi_{n}^2$, can be represented as the sum $Y=\sum_{k=1}^n Z_k^2$, where $Z_k\sim\Nc(0,1)$ are i.i.d. variates. We have $Y\in\se{2\sqrt{n},4}$, and the concentration
+\begin{equation}
+    \Pb(|\frac{1}{n}Y-1|\ge \delta)\le 2e^{-\frac{1}{8}n\delta^2}\text{ for } \delta\in(0,1)
+\end{equation}
+\end{example}
+
+\proofenv{ 
+Consider the moment-generating function of $X$, we have for any $\lambda < \frac{1}{2}$, it holds
+
+\begin{align*}
+    \Eb[e^{\lambda (X-1)}]&=\int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{\lambda z^2-1} e^{-\frac{z^2}{2}}dz\\
+    &=\frac{e^{-\lambda}}{\sqrt{1-2\lambda}}.
+\end{align*} Moreover, if $|\lambda| < \frac{1}{4}$, then the MGF of $X$ is upper-bounded by $e^{2\lambda^2}=e^{\frac{1}{2} (2\lambda)^2}$. Therefore $X\in \se{2,4}$. Using Proposition \ref{prop:sub-expoential-property}, Y is sub-exponential with parameter $\nu=2\sqrt{n}$ and $\alpha=4$, and $\frac{Y}{n} \in \se{\frac{2}{\sqrt{n}},\frac{4}{n}}$. Combined with the fact that $-\frac{Y}{n}$ is also sub-exponential with same parameter, if $\delta< \frac{(2/\sqrt{n})^2}{4/n}=1$, we have
+\begin{align*}
+    \Pb(|\frac{1}{n}Y-1|\ge \delta)\le2\exp(-\frac{\delta^2}{2\times (2/\sqrt{n})^2})=2e^{-\frac{1}{8}n\delta^2}
+\end{align*}
+}
+
+\begin{example}[Comparison of concentration results for bounded variables] Let $X$ be random variable which is supported almost surely on $[\mu-b, \mu+b]$, where $\mu$ is its mean. Then \\
+(1) $X\in \sg{b}$. Using Hoeffding inequality, we obtain
+\begin{align*}
+    \Pb(X-\mu\ge t)\le e^{-\frac{t^2}{2b^2}},
+\end{align*}
+(2) $X\in \bs{b}$. Using Bernstein-type bound, we have
+\begin{align*}
+    \Pb(X-\mu\ge t)\le e^{-\frac{t^2}{2(bt+\sigma^2)}}.
+\end{align*}
+This indicating that if $t$ is small and $\sigma^2$ is far more smaller than $b^2$, $X$ has Sub-Gaussian behavior with parameter $\sigma$ rather than $b$.
+\end{example}
+
+\proofenv{
+We only need to prove that $X\in \bs{b}$, that's because
+
+\begin{align*}
+    \big|\Eb[(X-\mu)^k]\big|\le \Eb[|X-\mu|^k] \le \Eb[b^{k-2}(X-\mu)^2] = b^{k-2}\sigma^2\le \frac{k!}{2}b^{k-2}\sigma^2
+\end{align*} 
+}
+
+\subsubsection{Some one-side results}
+
+\begin{proposition}[One-sided Bernstein's inequality] If $X\le b$ almost surely, then
+\begin{align}
+    \Eb[e^{\lambda(X-\Eb[X])}]\le \exp\Big(\frac{\frac{1}{2}\lambda^2\Eb[X^2]}{1-\frac{1}{3}b\lambda}\Big) \text{ for all } \lambda \in [0,\frac{3}{b}).
+\end{align} Consequently, given $n$ independent random variables such that $X_i\le b$ almost surely, we have the concentration inequality
+\begin{align}
+    \Pb\big(\sum_{i=1}^n (X_i-\Eb[X_i])\ge n\delta\big)\le \exp\big(-\frac{n\delta^2}{\frac{1}{n}\sum_{i=1}^n \Eb[X_i^2]+\frac{1}{3}b\delta}\big).
+\end{align}
+\end{proposition}
+
+\proofenv{ Consider the Taylor expansion of $\Eb[e^{\lambda X}]$ as
+\begin{align*}
+    \Eb[e^{\lambda X}]&=1+\lambda \Eb[X] + \frac{1}{2}\lambda^2 \cdot \Eb\Big[2\sum_{k=2}^\infty \frac{1}{k!} (\lambda X)^{k-2} X^2 \Big]\\
+    &=1+\lambda \Eb[X]+\frac{\lambda^2}{2} \Eb[h(\lambda X) X^2], 
+\end{align*} where $h(u)=2\frac{e^u-1-u}{u^2}=2 \sum_{k=2}^\infty \frac{1}{k!}u^{k-2}$. It should be noted that $h(\cdot)$ is non-decreasing in $\Rb$, and 
+\begin{align*}
+    h(u) \le \sum_{k=2}^\infty \frac{1}{3^{k-2}} u^{k-2} = \frac{1}{1-\frac{1}{3}u}.
+\end{align*} Applying these to the Taylor expansion of $\Eb[e^{\lambda X}]$, we find that
+\begin{align*}
+    \Eb[e^{\lambda X}] &\le 1 + \lambda\Eb[X] + \frac{\lambda^2}{2} \Eb[h(\lambda b) X^2] \\
+    & \le 1 + \lambda \Eb[X] + \frac{\frac{1}{2}\lambda^2\Eb[X^2]}{1-\frac{1}{3}b\lambda}
+\end{align*}, and hence the moment-generating function can be bounded as
+\begin{align*}
+    \Eb[e^{\lambda (X-\Eb[X])}] \le \exp\Big(\frac{\frac{1}{2}\lambda^2\Eb[X^2]}{1-\frac{1}{3}b\lambda}\Big).
+\end{align*}
+The concentration inequality could then be obtained using Chernoff inequality with $\lambda_*=\frac{t}{\frac{1}{3}bt + \Eb[X^2]}$
+}
+
+\subsection{Martingale-based methods}
+
