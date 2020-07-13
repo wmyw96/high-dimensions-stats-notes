@@ -294,3 +294,17 @@ The concentration inequality could then be obtained using Chernoff inequality wi
 
 \subsection{Martingale-based methods}
 
+\subsubsection{Background}
+
+\begin{definition} (Filtration and Adaption)
+    Let $\{\FC_k\}_k=1^\infty$ be a sequence of $\sigma$-field that are nested $\FC_{k}\subset \FC_{k+1}$, such sequence is known as filtration. Moreover, a sequence of random variables $\{Y_k\}_{k=1}^\infty$ is adapted to $\{\FC_k\}_k=1^\infty$ if $Y_k$ is measurable with respect to $\FC_k$ for any $k=1,2,\cdots$.
+\end{definition}
+
+\begin{definition}[Martingale]
+Given a sequence $\{Y_k\}_{k=1}^\infty$ of random variables adapted to a filtration $\{\FC_{k}\}_{k=1}^\infty$, the pair $\{(Y_k, \FC_k)\}_{k=1}^\infty$ is a martingale if for all $k\ge 1$,
+
+\begin{align*}
+    \Eb|Y_k|<\infty \text{ and } \Eb[Y_{k+1}|]FC_k
+=Y\end{align*}\
+\end{definition}
+\subsubsection{Concentration bounds for martingale difference sequence}
